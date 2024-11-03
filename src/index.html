@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="reset.css" >
+    <link rel="stylesheet" href="style.css" >
+    <title>Personajes Comic</title>
+  </head>
+  <body>
+    <main class="contenedor">
+      <div class="contenedor-h1">
+        <h1 class="cabecera-h1">Personajes de Mortadelo y Filemón</h1>
+      </div>
+     
+        <form id="formulario-buscador" class="contenedor-buscador">
+          <div class="grupo-buscador">        
+            <input id="buscador" type="text" name="buscador" required />
+            <button type="submit">Filtrar</button>
+            <button type="button" id="limpiar">Resetear</button>
+          </div>
+        </form>
+        <div id="mensaje" class="mensaje"></div>
+      <div id="contenedor-personajes">      
+      </div>
+    </main>
+  </body>
+  <script type="module" src="personaje-listar.ui.ts"></script>
+</html>
