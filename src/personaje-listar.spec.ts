@@ -28,17 +28,15 @@ describe("obtenerPersonajes", () => {
     expect(result).toEqual(personajeMock);
   });
 
-  it('Debería devolver una error "Ha ocurrido un error al realizar la petición" cuando rechaza la petición con el código 403', async () => {
-    // Arrange
-    vi.spyOn(Axios, "get").mockRejectedValue({
-      response: {
-        status: 403,
-      },
-    } as AxiosError);
-    
-    // Act
-    const result = await obtenerPersonajes();
-    // Assert
-    expect(result).toEqual("Ha ocurrido un error al realizar la petición");
-  });
+   it('debería devolver una error "Ha ocurrido un error al realizar la petición" cuando rechaza la petición con el código 404', async () => {
+         // Arrange
+         vi.spyOn(Axios, "get").mockRejectedValue({
+           response: {
+             status: 404,
+           },
+         } as AxiosError); 
+       
+        await expect(obtenerPersonajes()).rejects.toThrow("Ha ocurrido un error al realizar la petición");
+         
+       });
 });

@@ -7,26 +7,26 @@ const pintarPersonajes = async (personajes: Personaje[]): Promise<void> => {
     contenedorPersonaje.innerHTML = "";
 
     if (personajes.length !== 0) {
-      mostrarMensajeVacio(false);
+      mostrarMensaje(false);
       personajes.forEach((personaje) => {
         const tarjetaPersonaje = crearTarjetaPersonaje(personaje);
         contenedorPersonaje.appendChild(tarjetaPersonaje);
       });
     } else {
-      mostrarMensajeVacio(true);
+      mostrarMensaje(true);
     }
   } else {
     throw new Error("No se ha encontrado el contenedor del listado");
   }
 };
 
-const mostrarMensajeVacio = (mostrar: boolean) => {
+const mostrarMensaje= (mostrar: boolean,texto?:string) => {
   const mensaje = document.querySelector("#mensaje");
   if (mensaje && mensaje instanceof HTMLElement) {
     if (!mostrar) {
       mensaje.style.display = "none";
     } else {
-      mensaje.textContent = "No se ha encontrado ningún personaje.";
+      mensaje.textContent = texto ? texto : "No se ha encontrado ningún personaje.";
       mensaje.style.display = "block";
     }
   }
@@ -78,9 +78,18 @@ const mostrarPersonajes = () => {
 };
 
 const almacenarPersonajes = async (): Promise<void> => {
-  const resultado = await obtenerPersonajes();
-  personajes.splice(0, resultado.length, ...resultado);
-};
+
+  try {
+    const resultado = await obtenerPersonajes();   
+    personajes.splice(0, resultado.length, ...resultado);
+
+    } catch (error) {
+        
+        if (error instanceof Error) {
+            mostrarMensaje(true, error.message); 
+        } 
+    }
+}    
 
 const normalizarTexto = (texto: string) => {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
